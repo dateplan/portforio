@@ -42,7 +42,6 @@ jobs:
         cd src
         mkdir -p database
         touch database/database.sqlite
-        ls -la database  # ディレクトリの内容を確認
 
     - name: Run Migrations
       run: |
