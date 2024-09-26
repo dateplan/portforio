@@ -17,6 +17,8 @@ jobs:
         env:
           MYSQL_DATABASE: portforio
           MYSQL_ROOT_PASSWORD: root
+          MYSQL_USER: root
+          MYSQL_PASSWORD: root  # MySQLユーザーのパスワードを設定
         ports:
           - 3306:3306
         options: >-
@@ -69,7 +71,7 @@ jobs:
         DB_PORT: 3306
         DB_DATABASE: portforio
         DB_USERNAME: root
-        DB_PASSWORD: root
+        DB_PASSWORD: root  # 環境変数にパスワードを追加
       run: |
         cd src
         php artisan test
