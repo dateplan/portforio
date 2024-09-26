@@ -8,57 +8,58 @@ on:
 
 jobs:
   laravel-tests:
+
     runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_DATABASE: portforio
+          MYSQL_ROOT_PASSWORD: root
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h localhost"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
 
     steps:
     - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
       with:
         php-version: '8.0'
-        
     - uses: actions/checkout@v4
-
     - name: Install Dependencies
       run: |
         cd src
         composer install -v --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-
     - name: Copy .env
       run: |
         cd src
-        cp .env.example .env
-        
+        php -r "file_exists('.env') || copy('.env.example', '.env');"
     - name: Generate key
       run: |
         cd src
         php artisan key:generate
-
     - name: Directory Permissions
       run: |
         cd src
         chmod -R 777 storage bootstrap/cache
-
     - name: Create Database
       run: |
         cd src
         mkdir -p database
         touch database/database.sqlite
-
-    - name: Run Migrations
-      run: |
-        cd src
-        php artisan migrate --env=testing
-
-    - name: Clear Cache
-      run: |
-        cd src
-        php artisan config:clear
-        php artisan route:clear
-        php artisan cache:clear
-
     - name: Execute tests (Unit and Feature tests) via PHPUnit/Pest
       env:
-        DB_CONNECTION: sqlite
-        DB_DATABASE: /absolute/path/to/your/project/src/database/database.sqlite  # 絶対パスを設定
+        DB_CONNECTION: mysql
+        DB_HOST: 127.0.0.1
+        DB_PORT: 3306
+        DB_DATABASE: portforio
+        DB_USERNAME: root
+        DB_PASSWORD: root
       run: |
         cd src
+        php artisan migrate --force
         php artisan test
