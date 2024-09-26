@@ -8,17 +8,14 @@ on:
 
 jobs:
   laravel-tests:
-
     runs-on: ubuntu-latest
 
     services:
-      mysql:
+      db:
         image: mysql:5.7
         env:
-          MYSQL_DATABASE: portforio
           MYSQL_ROOT_PASSWORD: root
-          MYSQL_USER: root
-          MYSQL_PASSWORD: root  # MySQLユーザーのパスワードを設定
+          MYSQL_DATABASE: portforio
         ports:
           - 3306:3306
         options: >-
@@ -32,19 +29,7 @@ jobs:
       with:
         php-version: '8.0'
     - uses: actions/checkout@v4
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '16' # 必要に応じてNode.jsのバージョンを変更
-    - name: Install Node.js dependencies
-      run: |
-        cd src
-        npm install
-    - name: Build assets
-      run: |
-        cd src
-        npm run build
-    - name: Install PHP dependencies
+    - name: Install Dependencies
       run: |
         cd src
         composer install -v --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
@@ -60,18 +45,27 @@ jobs:
       run: |
         cd src
         chmod -R 777 storage bootstrap/cache
-    - name: Execute migrations
+    - name: Create Database
       run: |
         cd src
-        php artisan migrate --force
+        touch database/database.sqlite
+    - name: Execute migrations
+      env:
+        DB_CONNECTION: mysql
+        DB_HOST: db
+        DB_DATABASE: portforio
+        DB_USERNAME: root
+        DB_PASSWORD: root
+      run: |
+        cd src
+        php artisan migrate
     - name: Execute tests (Unit and Feature tests) via PHPUnit/Pest
       env:
         DB_CONNECTION: mysql
-        DB_HOST: 127.0.0.1
-        DB_PORT: 3306
+        DB_HOST: db
         DB_DATABASE: portforio
         DB_USERNAME: root
-        DB_PASSWORD: root  # 環境変数にパスワードを追加
+        DB_PASSWORD: root
       run: |
         cd src
         php artisan test
