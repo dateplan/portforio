@@ -54,6 +54,11 @@ jobs:
           echo "Waiting for MySQL..."
           sleep 1
         done
+    - name: Build Assets with Vite
+      run: |
+        cd src
+        npm install
+        npm run build
     - name: Run migrations
       env:
         DB_CONNECTION: mysql
