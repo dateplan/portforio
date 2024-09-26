@@ -51,9 +51,9 @@ jobs:
     - name: Clear Cache
       run: |
         cd src
-        php artisan cache:clear
         php artisan config:clear
         php artisan route:clear
+        php artisan cache:clear
 
     - name: Execute tests (Unit and Feature tests) via PHPUnit/Pest
       env:
