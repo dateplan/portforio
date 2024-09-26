@@ -45,10 +45,11 @@ jobs:
       run: |
         cd src
         chmod -R 777 storage bootstrap/cache
-    - name: Create Database
+    - name: Wait for MySQL to be ready
       run: |
-        cd src
-        touch database/database.sqlite
+        while ! mysqladmin ping -h"db" --silent; do
+          sleep 1
+        done
     - name: Execute migrations
       env:
         DB_CONNECTION: mysql
