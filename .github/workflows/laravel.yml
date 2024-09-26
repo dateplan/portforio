@@ -42,6 +42,7 @@ jobs:
         cd src
         mkdir -p database
         touch database/database.sqlite
+        ls -la database  # ディレクトリの内容を確認
 
     - name: Run Migrations
       run: |
@@ -58,7 +59,7 @@ jobs:
     - name: Execute tests (Unit and Feature tests) via PHPUnit/Pest
       env:
         DB_CONNECTION: sqlite
-        DB_DATABASE: src/database/database.sqlite
+        DB_DATABASE: /absolute/path/to/your/project/src/database/database.sqlite  # 絶対パスを設定
       run: |
         cd src
         php artisan test
