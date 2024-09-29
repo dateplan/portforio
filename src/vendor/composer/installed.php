@@ -1,8 +1,8 @@
 <?php return array(
     'root' => array(
         'name' => 'laravel/laravel',
-        'pretty_version' => 'v9.5.2',
-        'version' => '9.5.2.0',
+        'pretty_version' => '1.0.0+no-version-set',
+        'version' => '1.0.0.0',
         'reference' => null,
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
@@ -392,8 +392,8 @@
             'dev_requirement' => false,
         ),
         'laravel/laravel' => array(
-            'pretty_version' => 'v9.5.2',
-            'version' => '9.5.2.0',
+            'pretty_version' => '1.0.0+no-version-set',
+            'version' => '1.0.0.0',
             'reference' => null,
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
@@ -464,18 +464,18 @@
             'dev_requirement' => false,
         ),
         'league/flysystem' => array(
-            'pretty_version' => '3.28.0',
-            'version' => '3.28.0.0',
-            'reference' => 'e611adab2b1ae2e3072fa72d62c62f52c2bf1f0c',
+            'pretty_version' => '3.29.0',
+            'version' => '3.29.0.0',
+            'reference' => '0adc0d9a51852e170e0028a60bd271726626d3f0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../league/flysystem',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
         'league/flysystem-local' => array(
-            'pretty_version' => '3.28.0',
-            'version' => '3.28.0.0',
-            'reference' => '13f22ea8be526ea58c2ddff9e158ef7c296e4f40',
+            'pretty_version' => '3.29.0',
+            'version' => '3.29.0.0',
+            'reference' => 'e0e8d52ce4b2ed154148453d321e97c8e931bd27',
             'type' => 'library',
             'install_path' => __DIR__ . '/../league/flysystem-local',
             'aliases' => array(),
@@ -760,8 +760,8 @@
         'psr/log-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '1.0|2.0|3.0',
-                1 => '1.0.0 || 2.0.0 || 3.0.0',
+                0 => '1.0.0 || 2.0.0 || 3.0.0',
+                1 => '1.0|2.0|3.0',
             ),
         ),
         'psr/simple-cache' => array(
